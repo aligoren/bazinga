@@ -1,0 +1,71 @@
+timestamp: 2018-04-08T20:20:08.879784
+CREATE TABLE "users"(
+    "id" SERIAL PRIMARY KEY,
+    "created_at" TIMESTAMP,
+    "updated_at" TIMESTAMP,
+    "email" VARCHAR(255) UNIQUE,
+    "password" VARCHAR(512),
+    "registration_key" VARCHAR(512),
+    "reset_password_key" VARCHAR(512),
+    "registration_id" VARCHAR(512),
+    "first_name" VARCHAR(128) NOT NULL,
+    "last_name" VARCHAR(128) NOT NULL
+);
+success!
+timestamp: 2018-04-08T20:20:09.024588
+CREATE TABLE "auth_groups"(
+    "id" SERIAL PRIMARY KEY,
+    "created_at" TIMESTAMP,
+    "updated_at" TIMESTAMP,
+    "role" VARCHAR(255) UNIQUE,
+    "description" TEXT
+);
+success!
+timestamp: 2018-04-08T20:20:09.146197
+CREATE TABLE "auth_memberships"(
+    "id" SERIAL PRIMARY KEY,
+    "created_at" TIMESTAMP,
+    "updated_at" TIMESTAMP,
+    "user" INTEGER REFERENCES "users" ("id") ON DELETE CASCADE  ,
+    "auth_group" INTEGER REFERENCES "auth_groups" ("id") ON DELETE CASCADE  
+);
+success!
+timestamp: 2018-04-08T20:20:09.257633
+CREATE TABLE "auth_permissions"(
+    "id" SERIAL PRIMARY KEY,
+    "created_at" TIMESTAMP,
+    "updated_at" TIMESTAMP,
+    "name" VARCHAR(512) NOT NULL DEFAULT 'default',
+    "table_name" VARCHAR(512),
+    "record_id" INTEGER,
+    "auth_group" INTEGER REFERENCES "auth_groups" ("id") ON DELETE CASCADE  
+);
+success!
+timestamp: 2018-04-08T20:20:09.378829
+CREATE TABLE "auth_events"(
+    "id" SERIAL PRIMARY KEY,
+    "created_at" TIMESTAMP,
+    "updated_at" TIMESTAMP,
+    "client_ip" VARCHAR(512),
+    "origin" VARCHAR(512) NOT NULL,
+    "description" TEXT NOT NULL,
+    "user" INTEGER REFERENCES "users" ("id") ON DELETE CASCADE  
+);
+success!
+timestamp: 2018-04-08T20:20:09.496513
+CREATE TABLE "issues"(
+    "id" SERIAL PRIMARY KEY,
+    "title" VARCHAR(512),
+    "date" TIMESTAMP,
+    "user" INTEGER REFERENCES "users" ("id") ON DELETE CASCADE  
+);
+success!
+timestamp: 2018-04-08T22:14:04.873267
+ALTER TABLE "issues" ADD "user__tmp" INTEGER;
+UPDATE "issues" SET "user__tmp"="user";
+ALTER TABLE "issues" DROP COLUMN "user";
+ALTER TABLE "issues" ADD "user" INTEGER;
+UPDATE "issues" SET "user"="user__tmp";
+ALTER TABLE "issues" DROP COLUMN "user__tmp";
+success!
+success!

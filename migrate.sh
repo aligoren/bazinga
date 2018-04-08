@@ -1,0 +1,1 @@
+weppy -a models/migrate.py migrations generate

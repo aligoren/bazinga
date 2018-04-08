@@ -1,0 +1,53 @@
+<nav class="navbar is-dark">
+    <div class="navbar-brand">
+        <div class="navbar-burger burger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    
+    <div class="navbar-menu">
+        <div class="navbar-start">
+            <a class="navbar-item" href="/">
+                Home
+            </a>
+            {{if current.session.auth:}}
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link" href="#">
+                    Navigation
+                </a>
+                <div class="navbar-dropdown is-boxed">
+                    <a class="navbar-item" href="/me">
+                        Profile
+                    </a>
+                    <a class="navbar-item" href="/issues/my">
+                        My Issues
+                    </a>
+                </div>
+            </div>
+            {{pass}}
+        </div>
+
+        <div class="navbar-end">
+            <div class="navbar-item">
+                <div class="field is-grouped">
+                    <p class="control">
+                        {{if not current.session.auth:}}
+                        <a class="button is-info" href="/system/login">
+                            <span>Login</span>
+                        </a>
+                        <a class="button is-danger" href="/system/register">
+                            <span>Register</span>
+                        </a>
+                        {{else:}}
+                        <a class="button is-info" href="/system/logout">
+                            <span>Logout</span>
+                        </a>
+                        {{pass}}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>

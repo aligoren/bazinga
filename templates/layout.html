@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{=current.response.meta.title}}</title>
+    
+    {{include_static 'css/bulma.css'}}
+    {{include_static 'css/custom.css'}}
+    {{include_static 'js/fa.js'}}
+</head>
+<body>
+    {{include 'general/navbar.html'}}
+    <section class="section">
+        <div class="container">
+            {{block main}}
+            {{include}}
+            {{end}}
+        </div>
+    </section>
+    {{include 'general/footer.html'}}
+</body>
+</html>

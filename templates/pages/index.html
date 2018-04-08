@@ -1,0 +1,7 @@
+{{extend './layout.html'}}
+
+{{if current.session.auth:}}
+Welcome {{=current.session.auth.user.first_name}}
+{{pass}}
+
+
